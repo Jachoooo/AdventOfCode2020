@@ -1,6 +1,6 @@
 import re
 
-input=open("input2","r")
+input=open("input2.txt","r")
 i=0
 j=0
 for txt in input:
