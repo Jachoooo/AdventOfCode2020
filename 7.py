@@ -1,18 +1,18 @@
 
-def containsTargetBag(targetName, insideBags):
+def checkForTarget(target, insideBags):
     for child in insideBags:
-        if child == targetName:
+        if child == target:
             return True
-        if containsTargetBag(targetName, rules[child]):
+        if checkForTarget(target, rules[child]):
             return True
     return False
 
-def countInsideBags(insideBags):
+def countInside(insideBags):
     if insideBags == {}:
         return 0
     total = 0
     for insideBagName in insideBags:
-        total += ((countInsideBags(rules[insideBagName]) + 1) * insideBags[insideBagName])
+        total += ((countInside(rules[insideBagName]) + 1) * insideBags[insideBagName])
     return total
 
 
@@ -30,16 +30,16 @@ for line in input:
             rules[key][subkey]=int(words[i])
 
 answer=[]
-targetName = 'shinygold'
+target = 'shinygold'
 
 for bag in rules:
-    if containsTargetBag(targetName, rules[bag]):
+    if checkForTarget(target, rules[bag]):
         answer.append(bag)
     
 
 print(rules)
         
-print("SUM Parents of {}\t\t".format(targetName), len(answer))
-print("TOTAL INSIDE bags of {}\t\t".format(targetName), countInsideBags(rules[targetName]))    
+print("1 =", len(answer))
+print("2 =", countInside(rules[target]))    
 
 input.close()
