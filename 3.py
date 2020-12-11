@@ -4,7 +4,7 @@ input=open("input3.txt","r")
 slope=[]
 for txt in input:
     slope.append(txt[:-1])
-#print(slope[0],' ',slope[0][8],' ',len(slope),' ',len(slope[0]))
+
 
 
 j=0
