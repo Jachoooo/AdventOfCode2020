@@ -119,7 +119,7 @@ def printmat(M):
 
 
 #JKL2020
-#input=open("test.txt","r")
+input=open("test.txt","r")
 #input=open("input11.txt","r")
 M=[]
 for line in input:              #read input
@@ -144,7 +144,7 @@ while(1):
     if M1==M2:
         break
     M1=M2[:][:]
-    print('No. of full seats =',cntResult(M1))
+    
     #time.sleep(1)
     
-
+print('No. of full seats =',cntResult(M1))
