@@ -147,4 +147,4 @@ while(1):
     
     #time.sleep(1)
     
-print('No. of full seats =',cntResult(M1))
+print('No. of full seats = ',cntResult(M1))
