@@ -1,5 +1,7 @@
 import time
 
+
+#part1
 def nextstep(matrix):
     res=[]
     temp=[]
@@ -38,7 +40,9 @@ def nextstep(matrix):
             else:
                 return 0
     return res[:][:]
-    
+
+
+#part2
 def nextstep2(matrix):
     res=[]
     temp=[]
@@ -69,6 +73,8 @@ def nextstep2(matrix):
                 return 0
     return res[:][:]
 
+
+#part 2 visiblity check
 def checkVisibleTaken(M,i,j):
     
     taken=0
@@ -91,9 +97,7 @@ def checkVisibleTaken(M,i,j):
     return taken
 
 
-
-
-
+#count taken seats
 def cntResult(M):
     temp=0
     for i in range(1,len(M)-1):
@@ -103,6 +107,7 @@ def cntResult(M):
     return temp    
 
 
+#display function
 def printmat(M):
     for i in range(0,len(M[0])):
         print('_',end=' ')
@@ -117,29 +122,24 @@ def printmat(M):
 #input=open("test.txt","r")
 input=open("input11.txt","r")
 M=[]
-for line in input:
+for line in input:              #read input
     temp=['.']
     for char in line:
         temp.append(char)
     temp=temp[:-1]
     temp.append('.')
     M.append(temp)
-
-
 temp=[]
-for i in range(0,len(M[0])):
+for i in range(0,len(M[0])):    #add borders
     temp.append('.')
 M.insert(0,temp)
 M.append(temp)
-
-
 M1=M[:][:]
 M2=M[:][:]
 
-while(1):
-    
-    M2=nextstep2(M1)
-    
+#main loop
+while(1):    
+    M2=nextstep2(M1)    
     #printmat(M2)
     if M1==M2:
         break
