@@ -137,7 +137,7 @@ M.append(temp)
 M1=M[:][:]
 M2=M[:][:]
 
-#main loop
+#main
 while(1):    
     M2=nextstep2(M1)    
     #printmat(M2)
