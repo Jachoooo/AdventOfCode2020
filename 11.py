@@ -118,9 +118,9 @@ def printmat(M):
         print('')
 
 
-
+#JKL2020
 #input=open("test.txt","r")
-input=open("input11.txt","r")
+#input=open("input11.txt","r")
 M=[]
 for line in input:              #read input
     temp=['.']
