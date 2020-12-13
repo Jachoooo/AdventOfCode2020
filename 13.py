@@ -27,13 +27,7 @@ print('Part1 result =',mintim*busID)
 start=time.thread_time()
 inc=max(sch_int)
 idx=sch_int.index(inc)
-i=0
-for j in range(0,len(sch)):
-    if sch[j]=='x':
-        continue
-    i*=(sch_int[j]-j)
-
-i=i-(i%inc)-idx
+i=inc-idx
 sch[idx]='x'
 
 while(1):
@@ -47,14 +41,15 @@ while(1):
         else:    
             inc*=sch_int[j]
             sch[j]='x'
-    if not i%1000:
-        print((i+idx)%sch_int[idx])
+    if not i%100000:
+        print('exec time',time.thread_time()*10,'s')
     if temp:
         i+=inc
         continue
     else:
         break
 
+print('exec time',time.thread_time()-start,'s')
 print('Part2 result =',i)
 
 
