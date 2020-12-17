@@ -100,7 +100,7 @@ def nextstep2(matrix):
 
 
 
-#count taken seats
+
 def cntResult(M):
     temp=0
     for z in range(0,len(M)):
@@ -132,8 +132,18 @@ def printmat(M):
         print('')
 
 
-NO_OF_ITERATIONS = 7
+NO_OF_ITERATIONS = 7 #add 1 to desired no. of iterations
 START_SIZE = 4
+
+###
+### -> START_SIZE = 1
+###
+
+#####
+#####
+##### -> START_SIZE = 2
+#####
+#####
 
 input=open("input17.txt","r")
 
@@ -177,6 +187,9 @@ for i in range(0,NO_OF_ITERATIONS-1):
     print('I=',i,'res=',cntResult(M3))
 input.close()  
 print('Part1 done in',time.thread_time()-start,'s')
+
+
+
 #PART2
 start=time.thread_time()
 M4=[]
