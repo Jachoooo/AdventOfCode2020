@@ -186,7 +186,7 @@ for i in range(0,NO_OF_ITERATIONS-1):
     M3=nextstep(M3) 
     print('I=',i,'res=',cntResult(M3))
 input.close()  
-print('Part1 done in',time.thread_time()-start,'s')
+print('Part1 done in',time.thread_time()-start,'s ')
 
 
 
@@ -216,4 +216,4 @@ for i in range(0,NO_OF_ITERATIONS-1):
     M4=nextstep2(M4) 
     print('I=',i,'res=',cntResult2(M4))    
 input.close()
-print('Part2 done in',time.thread_time()-start,'s')
+print('Part2 done in',time.thread_time()-start,'s ')
