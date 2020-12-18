@@ -58,7 +58,7 @@ def solve2(line):
     
 
 
-input=open("test.txt","r")
+input=open("input18.txt","r")
 
 result=0
 result2=0
