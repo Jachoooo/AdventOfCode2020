@@ -1,4 +1,4 @@
-import re
+import re,time
 
 def solve(line):
     while(1):
@@ -57,22 +57,25 @@ def solve2(line):
     return str(res)
     
 
-
+print("Advent of Code 2020 - Day 18\n_________________________________")
+startTime=time.thread_time()
 input=open("input18.txt","r")
 
 result=0
 result2=0
 for line in input:
     res=int(solve(line))
-    print(line[:-1],'=',res)
+    #print(line[:-1],'=',res)
     result+=res
 
     res=int(solve2(line))
-    print(line[:-1],'=',res)
+    #print(line[:-1],'=',res)
     result2+=res
     
 
 print('Part1 result =',result)
 print('Part2 result =',result2)
+print('_________________________________\nDone in',
+      time.thread_time()-startTime,'s')
     
     
