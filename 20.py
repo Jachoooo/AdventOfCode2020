@@ -134,17 +134,21 @@ class Tile(object):
 
     def checkvalidnbr(self,nbr):
         if self.numbersValid[0]==nbr.numbersValid[1]:
-            
+            self.nbrsValid['TOP']=nbr.name
+            nbr.addvalidnbr('BOTTOM',self.name)
             return True
             
         if self.numbersValid[1]==nbr.numbersValid[0]:
-            
+            self.nbrsValid['BOTTOM']=nbr.name
+            nbr.addvalidnbr('TOP',self.name)
             return True
         if self.numbersValid[2]==nbr.numbersValid[3]:
-            
+            self.nbrsValid['LEFT']=nbr.name
+            nbr.addvalidnbr('RIGHT',self.name)
             return True
         if self.numbersValid[3]==nbr.numbersValid[2]:
-            
+            self.nbrsValid['RIGHT']=nbr.name
+            nbr.addvalidnbr('LEFT',self.name)
             return True            
         return False
     def setalligned(self):
@@ -199,15 +203,59 @@ def allignnbrs(tile1,tiles):
             tile2.setalligned()
             allignnbrs(tile2,tiles)
 
+def flipmap(mat):
+    temp=[]
+    for i in range(0,len(mat)):
+        temp.append(mat[len(mat)-1-i])
+    mat=temp[:]
+    return mat[:]
+        
+
+def rotate90map(mat):
+    mat=[[mat[j][i] for j in range(len(mat))] for i in range(len(mat[0])-1,-1,-1)]
+    return mat[:]    
+
+def findmonster(fullMap,monster):
+
+    count=0
+    for x in range(0,len(fullMap)-len(monster[0])):
+        for y in range(0,len(fullMap)-len(monster)):
+            cnt=0
+            for x2 in range(0,len(monster[0])):
+                for y2 in range(0,len(monster)):
+                    if fullMap[y+y2][x+x2]=='#' and monster[y2][x2]=='#':
+                        cnt+=1
+            if cnt==15:
+                count+=1
+                for x2 in range(0,len(monster[0])):
+                    for y2 in range(0,len(monster)):
+                        if monster[y2][x2]=='#':
+                            fullMap[y+y2][x+x2]='O'
+    return count,fullMap[:]
+
+def printmap(fullMap):
+    res=0
+    for y in range(0,len(fullMap)):
+        for x in range(0,len(fullMap)): 
+            print(fullMap[y][x],end=' ')
+            if fullMap[y][x]=='#':
+                res+=1
+        print('')
+
+    return res
 
 
+#INPUT_SIZE=9
+#INPUT_SIZE_RT=3
+#input=open("test.txt","r")
+INPUT_SIZE=144
+INPUT_SIZE_RT=12
+input=open("input20.txt","r")
 
-INPUT_SIZE=9
-#INPUT_SIZE=144
 
 print("Advent of Code 2020 - Day 20\n_________________________________")
 startTime=time.thread_time()
-input=open("test.txt","r")
+
 
 tiles=[]
 for i in range(0,INPUT_SIZE):
@@ -262,6 +310,174 @@ allignnbrs(tiles[0],tiles)
 
 
 print(checkalltiles(tiles))
+print('---------------\n')
+for tile1 in tiles:
+    for nbr in tile1.neighbors:
+        for tile2 in tiles:
+            if tile2.name!=nbr or tile1.name==tile2.name:
+                continue
 
+            tile1.checkvalidnbr(tile2)    
+
+startIDX=-1
+for i,tile1 in enumerate(tiles):
+    keys=list(tile1.nbrsValid.keys())
+    if(keys==['RIGHT', 'BOTTOM'] or keys==['BOTTOM','RIGHT']):
+        startIDX=i
+
+
+IDmap=[]
+temp=[]
+
+for i in range(0,INPUT_SIZE_RT):
+    temp=[]
+    for j in range(0,INPUT_SIZE_RT): 
+        temp.append(-1)
+    IDmap.append(temp)
+IDmap[0][0]=startIDX
+curr=startIDX
+nxt=0
+for y in range(0,INPUT_SIZE_RT):
+    for x in range(1,INPUT_SIZE_RT):
+        for j,tile1 in enumerate(tiles):
+            try:
+                if(tile1.name==tiles[curr].nbrsValid['RIGHT']):
+                    curr=j
+                    IDmap[y][x]=j
+                    break
+                    
+            except:
+                continue
+    for j,tile1 in enumerate(tiles):
+        try:
+            if tile1.name==tiles[IDmap[y][0]].nbrsValid['BOTTOM']:
+                IDmap[y+1][0]=j
+                curr=j
+        except:
+            continue
+
+
+for i in range(0,INPUT_SIZE_RT):
+    for j in range(0,10):
+        print(tiles[IDmap[i][0]].mat[0][j],end='')
+    print('')    
+    for j in range(0,10):
+        print(tiles[IDmap[i][0]].mat[-1][j],end='')
+        
+    print('')
+
+fullMap=[]
+temp=[]
+for y in range(0,INPUT_SIZE_RT):
+    for yMAT in range(1,9):
+        for x in range(0,INPUT_SIZE_RT):
+            for xMAT in range(1,9):
+                temp.append(tiles[IDmap[y][x]].mat[yMAT][xMAT])
+        fullMap.append(temp)
+        temp=[]
+
+
+
+print('---------------------------------------------------------------')
+
+monster=[]
+temp=[]
+for elem in '                  # ':
+    temp.append(elem)
+monster.append(temp)
+temp=[]
+for elem in '#    ##    ##    ###':
+    temp.append(elem)
+monster.append(temp)
+temp=[]
+for elem in ' #  #  #  #  #  #   ':
+    temp.append(elem)
+monster.append(temp)
+
+
+results=[]
+numHash=[]
+
+fullMap1=copy.deepcopy(fullMap)
+count,fullMap1 = findmonster(fullMap1[:],monster)
+res=printmap(fullMap1)
+print('found',count)
+results.append(count)
+numHash.append(res)
+
+fullMap=flipmap(fullMap)
+
+fullMap1=copy.deepcopy(fullMap)
+count,fullMap2 = findmonster(fullMap1[:],monster)
+res=printmap(fullMap1)
+print('found',count)
+results.append(count)
+numHash.append(res)
+
+fullMap=flipmap(fullMap) 
+fullMap=rotate90map(fullMap)
+
+fullMap1=copy.deepcopy(fullMap)
+count,fullMap1 = findmonster(fullMap1[:],monster)
+res=printmap(fullMap1)
+print('found',count)
+results.append(count)
+numHash.append(res)
+
+fullMap=flipmap(fullMap)
+
+fullMap1=copy.deepcopy(fullMap)
+count,fullMap2 = findmonster(fullMap1[:],monster)
+res=printmap(fullMap1)
+print('found',count)
+results.append(count)
+numHash.append(res)
+
+fullMap=flipmap(fullMap) 
+fullMap=rotate90map(fullMap)
+
+fullMap1=copy.deepcopy(fullMap)
+count,fullMap1 = findmonster(fullMap1[:],monster)
+res=printmap(fullMap1)
+print('found',count)
+results.append(count)
+numHash.append(res)
+
+fullMap=flipmap(fullMap)
+
+fullMap1=copy.deepcopy(fullMap)
+count,fullMap2 = findmonster(fullMap1[:],monster)
+res=printmap(fullMap1)
+print('found',count)
+results.append(count)
+numHash.append(res)
+
+fullMap=flipmap(fullMap) 
+fullMap=rotate90map(fullMap)
+
+fullMap1=copy.deepcopy(fullMap)
+count,fullMap1 = findmonster(fullMap1[:],monster)
+res=printmap(fullMap1)
+print('found',count)
+results.append(count)
+numHash.append(res)
+
+fullMap=flipmap(fullMap)
+
+fullMap1=copy.deepcopy(fullMap)
+count,fullMap2 = findmonster(fullMap1[:],monster)
+res=printmap(fullMap1)
+print('found',count)
+results.append(count)
+numHash.append(res)
+
+fullMap=flipmap(fullMap) 
+fullMap=rotate90map(fullMap)
+
+
+print(results)
+print(numHash)
+
+print('Part2 result =',min(numHash))
 print("_________________________________\nDone in",
       time.thread_time()-startTime,'s')
