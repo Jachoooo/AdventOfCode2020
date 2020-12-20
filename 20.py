@@ -153,7 +153,7 @@ class Tile(object):
         return False
     def setalligned(self):
         self.aligned=1
-        print(self.name,'is alligned')
+        #print(self.name,'is alligned')
 
     def addvalidnbr(self,side,name):
         self.nbrsValid[side]=name
@@ -237,10 +237,10 @@ def printmap(fullMap):
     res=0
     for y in range(0,len(fullMap)):
         for x in range(0,len(fullMap)): 
-            print(fullMap[y][x],end=' ')
+            #print(fullMap[y][x],end=' ')
             if fullMap[y][x]=='#':
                 res+=1
-        print('')
+        #print('')
 
     return res
 
@@ -271,7 +271,7 @@ for i in range(0,INPUT_SIZE):
 testTile1=tiles[0]
 testTile2=copy.copy(tiles[0])
 testTile2.rotate90()
-print(testTile1.numbersValid,testTile2.numbersValid)
+#print(testTile1.numbersValid,testTile2.numbersValid)
 
 
 
@@ -300,7 +300,7 @@ for tile1 in tiles:
     
 print('Part1 result =',corners)
 
-print(checkalltiles(tiles))
+#print(checkalltiles(tiles))
 
 
 tiles[0].setalligned()
@@ -309,8 +309,8 @@ allignnbrs(tiles[0],tiles)
 
 
 
-print(checkalltiles(tiles))
-print('---------------\n')
+#print(checkalltiles(tiles))
+#print('---------------\n')
 for tile1 in tiles:
     for nbr in tile1.neighbors:
         for tile2 in tiles:
@@ -357,14 +357,7 @@ for y in range(0,INPUT_SIZE_RT):
             continue
 
 
-for i in range(0,INPUT_SIZE_RT):
-    for j in range(0,10):
-        print(tiles[IDmap[i][0]].mat[0][j],end='')
-    print('')    
-    for j in range(0,10):
-        print(tiles[IDmap[i][0]].mat[-1][j],end='')
-        
-    print('')
+
 
 fullMap=[]
 temp=[]
@@ -378,7 +371,7 @@ for y in range(0,INPUT_SIZE_RT):
 
 
 
-print('---------------------------------------------------------------')
+#print('---------------------------------------------------------------')
 
 monster=[]
 temp=[]
@@ -401,7 +394,7 @@ numHash=[]
 fullMap1=copy.deepcopy(fullMap)
 count,fullMap1 = findmonster(fullMap1[:],monster)
 res=printmap(fullMap1)
-print('found',count)
+#print('found',count)
 results.append(count)
 numHash.append(res)
 
@@ -410,7 +403,7 @@ fullMap=flipmap(fullMap)
 fullMap1=copy.deepcopy(fullMap)
 count,fullMap2 = findmonster(fullMap1[:],monster)
 res=printmap(fullMap1)
-print('found',count)
+#print('found',count)
 results.append(count)
 numHash.append(res)
 
@@ -420,7 +413,7 @@ fullMap=rotate90map(fullMap)
 fullMap1=copy.deepcopy(fullMap)
 count,fullMap1 = findmonster(fullMap1[:],monster)
 res=printmap(fullMap1)
-print('found',count)
+#print('found',count)
 results.append(count)
 numHash.append(res)
 
@@ -429,7 +422,7 @@ fullMap=flipmap(fullMap)
 fullMap1=copy.deepcopy(fullMap)
 count,fullMap2 = findmonster(fullMap1[:],monster)
 res=printmap(fullMap1)
-print('found',count)
+#print('found',count)
 results.append(count)
 numHash.append(res)
 
@@ -439,7 +432,7 @@ fullMap=rotate90map(fullMap)
 fullMap1=copy.deepcopy(fullMap)
 count,fullMap1 = findmonster(fullMap1[:],monster)
 res=printmap(fullMap1)
-print('found',count)
+#print('found',count)
 results.append(count)
 numHash.append(res)
 
@@ -448,7 +441,7 @@ fullMap=flipmap(fullMap)
 fullMap1=copy.deepcopy(fullMap)
 count,fullMap2 = findmonster(fullMap1[:],monster)
 res=printmap(fullMap1)
-print('found',count)
+#print('found',count)
 results.append(count)
 numHash.append(res)
 
@@ -458,7 +451,7 @@ fullMap=rotate90map(fullMap)
 fullMap1=copy.deepcopy(fullMap)
 count,fullMap1 = findmonster(fullMap1[:],monster)
 res=printmap(fullMap1)
-print('found',count)
+#print('found',count)
 results.append(count)
 numHash.append(res)
 
@@ -467,7 +460,7 @@ fullMap=flipmap(fullMap)
 fullMap1=copy.deepcopy(fullMap)
 count,fullMap2 = findmonster(fullMap1[:],monster)
 res=printmap(fullMap1)
-print('found',count)
+#print('found',count)
 results.append(count)
 numHash.append(res)
 
@@ -475,8 +468,8 @@ fullMap=flipmap(fullMap)
 fullMap=rotate90map(fullMap)
 
 
-print(results)
-print(numHash)
+#print(results)
+#print(numHash)
 
 print('Part2 result =',min(numHash))
 print("_________________________________\nDone in",
